@@ -4,25 +4,37 @@ require 'json/ext' # required for .to_json
 
 include Mongo
 
-configure do
-  conn = MongoClient.new("localhost", 27017)
-  set :mongo_connection, conn
-  set :mongo_db, conn.db('frasesDB')
-end
-
 helpers do
+
+  def get_connection
+    #TODO: mejorar la forma de realizar la conexion
+    
+    return @db_connection if @db_connection
+
+    uri = ENV['MONGOHQ_URL']
+    
+    if uri.nil?
+      uri = "mongodb://localhost:27017/frasesDB"
+    end
+    
+    db = URI.parse( uri )
+    db_name = db.path.gsub(/^\//, '')
+    @db_connection = Mongo::Connection.new(db.host, db.port).db(db_name)
+    @db_connection.authenticate(db.user, db.password) unless (db.user.nil? || db.user.nil?)
+    @db_connection
+  end
+
+  def getDB
+    get_connection['frases']
+  end
   
   def remove_id obj
     obj.delete('_id')
     obj
   end
 
-  def getDB
-    settings.mongo_db['frases']
-  end
-
   def getNextFraseNumber
-    settings.mongo_db.eval( "getNewFraseID()" )
+    get_connection.eval( "getNewFraseID()" )
   end
   
 end
