@@ -71,7 +71,9 @@
       <hr>
 
       <div class="jumbotron">
+          <% unless fraserandom.nil? %>
         <h2 id="frasetop"><strong>#<%= fraserandom['numero'].to_i %></strong> <%= fraserandom['frase'] %></h2>
+          <%end%>
         <form id="addFraseForm">
 		<div class="input-append">
 		  <input class="span2" id="frase" name="frase" type="text">
@@ -93,6 +95,7 @@
         
         <ul class="media-list" id="frasesList">
 
+          <% unless frases.nil? %>
           <% frases.each do |frase| %>
 
           <li class="media">
@@ -101,6 +104,7 @@
             </div>
           </li>
 
+          <%end%>
           <%end%>
         </ul>        
 
