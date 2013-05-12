@@ -1,17 +1,22 @@
-lafrasedetuvida
+La frase de tu vida!
 ===============
 
 Un pool de frases celebres (... y no tan celebres)
 
+Dependencies
+------------
+Ruby 
+MongoDB
 
-
-Install:
+Install
+-------
 
 Download and run
 
         $ bundle install
 
-Run server:
+Run server
+----------
 
         $ rackup
 
