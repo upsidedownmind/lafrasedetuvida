@@ -34,7 +34,9 @@ helpers do
   end
 
   def getNextFraseNumber
-    get_connection.eval( "getNewFraseID()" )
+    col = get_connection['counters']
+    col.update({:_id => 'fraseid'},{ '$inc'=> { :seq => 1 } })
+    col.find({:_id => 'fraseid'}).first['seq']
   end
   
 end
