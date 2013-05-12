@@ -1,7 +1,9 @@
 
 
 function loadList() {
-	
+
+  $('#frasesList').html('');
+
   $.getJSON(  
     '/frases',  
     {},  
@@ -29,7 +31,27 @@ $(document).ready(function() {
     cache: false  
   }); 
  
-  loadList();
+  //loadList();
+  
+  $('#dice').click(function(){
+
+    $('#frasetop').html('...');
+
+    $.getJSON(  
+    '/fraserandom',  
+    {},  
+    function(json) {
+      if(json.frase) {
+        $('#frasetop').html('<strong>#'+json.numero+'</strong> '+json.frase);
+      }
+    })
+    
+    //.done(function() { console.log( "second success" ); })
+    .fail(function() { alert( "error cargando frases" ); })
+    //.always(function() { console.log( "complete" ); });
+
+
+  });
 	
   $('#addFraseBtn').click(function () {
   

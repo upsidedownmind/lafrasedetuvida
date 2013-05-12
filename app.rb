@@ -46,7 +46,15 @@ get '/' do
   ids = getDB.find({},fields:{_id:1}).to_a
   fraserandom = getDB.find(ids.sample).first
 
-  erb :index, :locals => {:fraserandom => remove_id(fraserandom)}
+  frases = getDB.find.sort( { :numero => -1 } ).to_a
+  
+  erb :index, :locals => {:fraserandom => fraserandom, :frases => frases }
+end
+
+get '/fraserandom/?' do
+#TODO: buscar una mejor manera de hacer esto
+  ids = getDB.find({},fields:{_id:1}).to_a
+  remove_id( getDB.find(ids.sample).first ).to_json
 end
 
 get '/frases/?' do

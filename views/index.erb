@@ -38,6 +38,10 @@
       .jumbotron .span2 {
        width: 300px;
       }
+
+      #dice {
+       margin-left: 2em;
+      }
       
     </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -60,22 +64,19 @@
     <div class="container-narrow">
 
       <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Random!</a></li>
-          <li><a href="https://github.com/upsidedownmind/lafrasedetuvida">Fork!</a></li>
-        </ul>
+        <a href="#" id="dice" class="pull-right"><img src="img/dice.png" /></a>
         <h3 class="muted">La Frase de tu vida</h3>
       </div>
 
       <hr>
 
       <div class="jumbotron">
-        <h2><strong>#<%= fraserandom['numero'].to_i %></strong> <%= fraserandom['frase'] %></h2>
+        <h2 id="frasetop"><strong>#<%= fraserandom['numero'].to_i %></strong> <%= fraserandom['frase'] %></h2>
         <form id="addFraseForm">
 		<div class="input-append">
 		  <input class="span2" id="frase" name="frase" type="text">
 		  <button class="btn" id="addFraseBtn" type="button" >Agregar!</button>
-		</div>
+                </div>
 	</form>
       </div>
 
@@ -91,7 +92,16 @@
       <div class="row-fluid">
         
         <ul class="media-list" id="frasesList">
-          
+
+          <% frases.each do |frase| %>
+
+          <li class="media">
+            <div class="media-body">
+              <strong>#<%= frase['numero'].to_i %></strong> <%= frase['frase'] %>
+            </div>
+          </li>
+
+          <%end%>
         </ul>        
 
       </div>
